@@ -12,3 +12,6 @@ ADD FOREIGN KEY (id) REFERENCES Listings(id);
 
 ALTER TABLE Reviews_Summary
 ADD FOREIGN KEY (listing_id) REFERENCES Listings(id);
+
+ALTER TABLE Geolocation
+ADD FOREIGN KEY (properties_neighbourhood) REFERENCES Neighbourhoods(neighbourhood);
