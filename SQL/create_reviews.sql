@@ -6,5 +6,4 @@ CREATE TABLE Reviews (
 	reviewer_name VARCHAR(100),
 	comments TEXT,
 	PRIMARY KEY(id)
-	
 );
