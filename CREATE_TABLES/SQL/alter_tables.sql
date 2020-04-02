@@ -1,5 +1,3 @@
-BEGIN;
-
 ALTER TABLE Calendar
 ADD FOREIGN KEY (listing_id) REFERENCES Listings(id);
 
@@ -14,5 +12,3 @@ ADD FOREIGN KEY (id) REFERENCES Listings(id);
 
 ALTER TABLE Reviews_Summary
 ADD FOREIGN KEY (listing_id) REFERENCES Listings(id);
-
-COMMIT;
