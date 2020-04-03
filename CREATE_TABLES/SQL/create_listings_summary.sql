@@ -8,7 +8,7 @@ CREATE TABLE Listings_Summary (
     latitude VARCHAR(20),
     longitude VARCHAR(20),
     room_type VARCHAR(20),
-    price MONEY,
+    price VARCHAR(10),
     minimum_nights INT,
     number_of_reviews INT,
     last_review VARCHAR(10),
