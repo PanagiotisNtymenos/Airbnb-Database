@@ -5,4 +5,4 @@
 
   
 ## ER
-![](CREATE_TABLES/DIAGRAMS/Airbnb_ERD.png)
+![](CREATE_TABLES/DIAGRAMS/airbnb_ERD.png)
