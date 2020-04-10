@@ -6,7 +6,7 @@ Output: 324 rows
 SELECT DISTINCT Listings.name, Listings.zipcode, Listings.latitude, Listings.longitude FROM Listings
 INNER JOIN Calendar
 ON Listings.id = Calendar.listing_id
-WHERE Calendar.date BETWEEN '20200401' AND '20200405' AND Listings.neighbourhood_cleansed = 'ΚΥΨΕΛΗ';
+WHERE Calendar.date BETWEEN '20200401' AND '20200405' AND Listings.neighbourhood_cleansed = 'ΚΥΨΕΛΗ'
 
 
 
@@ -19,7 +19,7 @@ SELECT Listings.name, Listings.price, Reviews.reviewer_name, Reviews.comments FR
 INNER JOIN Reviews
 ON Listings.id = Reviews.listing_id
 WHERE Listings.number_of_reviews <= 10 AND LENGTH(Listings.price) <= 6 AND CAST((RIGHT(Listings.price, LENGTH(Listings.price) - 1 )) as DECIMAL(9,2)) BETWEEN 20 AND 50
-ORDER BY Listings.price ASC;
+ORDER BY Listings.price ASC
 
 
 
@@ -33,7 +33,7 @@ INNER JOIN Calendar
 ON Listings.id = Calendar.listing_id
 WHERE CAST(Listings.review_scores_rating AS INT) >= 90 AND Calendar.minimum_nights >= 5 AND Listings.number_of_reviews >= 100
 ORDER BY Listings.price ASC
-LIMIT 10;
+LIMIT 10
 
 
 
@@ -47,7 +47,7 @@ LEFT JOIN Reviews
 ON Reviews.listing_id = Listings.id
 RIGHT JOIN Neighbourhoods
 ON Neighbourhoods.neighbourhood = Listings.neighbourhood_cleansed
-GROUP BY Neighbourhoods.neighbourhood;
+GROUP BY Neighbourhoods.neighbourhood
 
 
 
@@ -59,7 +59,7 @@ Output: 45 rows
 SELECT Neighbourhoods.neighbourhood, COUNT(Listings.id) AS houses, ROUND( AVG( CAST( Listings.review_scores_rating AS NUMERIC(9, 2))), 2) AS MO FROM Listings
 LEFT JOIN Neighbourhoods
 ON Neighbourhoods.neighbourhood = Listings.neighbourhood_cleansed
-GROUP BY Neighbourhoods.neighbourhood;
+GROUP BY Neighbourhoods.neighbourhood
 
 
 
@@ -74,4 +74,38 @@ ON Calendar.listing_id = Listings.id
 JOIN Reviews
 ON Reviews.listing_id = Listings.id
 WHERE CAST(Calendar.date AS VARCHAR(10)) LIKE '2020%'
-GROUP BY Listings.id;
+GROUP BY Listings.id
+
+
+
+/* 7th Query
+Find all reviews that took place in 2018 for houses in ΠΑΓΚΡΑΤΙ.
+Output: 4222 rows 
+*/
+
+SELECT Reviews.id, Reviews.reviewer_id, Reviews.reviewer_name, Reviews.comments FROM Reviews
+JOIN Listings
+ON Reviews.listing_id = Listings.id
+JOIN Neighbourhoods
+ON Neighbourhoods.neighbourhood = Listings.neighbourhood_cleansed
+WHERE CAST(Reviews.date AS VARCHAR(10)) LIKE '2018%' AND Listings.neighbourhood_cleansed = 'ΠΑΓΚΡΑΤΙ'
+
+
+
+/* 8th Query
+Find all reviews from the top reviewer of the database.
+Output: 339 rows 
+*/
+
+SELECT Reviews.id, Reviews.date, Reviews.comments, Listings.id, Listings.name FROM Reviews
+JOIN (SELECT Reviews.reviewer_id AS rev_id, COUNT(Reviews.reviewer_id) FROM Reviews
+		GROUP BY Reviews.reviewer_id
+		HAVING COUNT(Reviews.reviewer_id) IN (SELECT MAX(ALL_REVIEWER_REVIEWS)
+		FROM (SELECT Reviews.reviewer_id, COUNT(Reviews.reviewer_id) AS ALL_REVIEWER_REVIEWS 
+					FROM Reviews
+					GROUP BY Reviews.reviewer_id) AS ALL_REVIEWS)) AS FOO
+ON Reviews.reviewer_id = rev_id
+JOIN Listings
+ON Listings.id = Reviews.listing_id
+ORDER BY Reviews.date
+
