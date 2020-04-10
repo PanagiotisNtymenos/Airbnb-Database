@@ -75,6 +75,7 @@ JOIN Reviews
 ON Reviews.listing_id = Listings.id
 WHERE CAST(Calendar.date AS VARCHAR(10)) LIKE '2020%'
 GROUP BY Listings.id
+<<<<<<< HEAD
 
 
 
@@ -109,3 +110,5 @@ JOIN Listings
 ON Listings.id = Reviews.listing_id
 ORDER BY Reviews.date
 
+=======
+>>>>>>> d432a16113f992d36312233c5fc195bc5ceb228b
