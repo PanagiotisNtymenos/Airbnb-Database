@@ -142,3 +142,16 @@ SELECT Listings.id, Listings.name, Listings.price FROM Listings
 GROUP BY Listings.id
 HAVING Listings.price = (SELECT MIN(Listings.price) FROM Listings
 							WHERE Listings.price > '$0.00');	
+
+
+
+/* 12th Query
+Find all reviews in ΘΗΣΕΙΟ.
+Output: 17019 rows
+*/
+
+SELECT Reviews.id, Reviews.reviewer_name, Reviews.date, Reviews.comments, Listings.id, Listings.name, Listings.price FROM Reviews
+JOIN Listings
+ON Reviews.listing_id = Listings.id
+WHERE Listings.neighbourhood_cleansed = 'ΘΗΣΕΙΟ'
+GROUP BY Reviews.id, Listings.id, Listings.name, Listings.price;
