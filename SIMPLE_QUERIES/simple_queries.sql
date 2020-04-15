@@ -109,3 +109,24 @@ JOIN Listings
 ON Listings.id = Reviews.listing_id
 ORDER BY Reviews.date
 
+
+
+/* 9th Query
+Find all hosts before 2012, with at least one house of 90 review score or higher.
+Output: 83 rows 
+*/
+
+SELECT DISTINCT Listings.host_id, Listings.host_name, Listings.host_since, COUNT(Listings.id) FROM Listings
+WHERE CAST(Listings.host_since AS VARCHAR(10)) < '2012%' AND Listings.review_scores_rating >= '90'
+GROUP BY Listings.host_id, Listings.host_name, Listings.host_since
+
+
+
+/* 10th Query
+Find all rentings available between $0 and $50 in ΠΕΤΡΑΛΩΝΑ rated 90 or higher.
+Output: 114 rows 
+*/
+
+SELECT Listings.id, Listings.name, Listings.price, Listings.review_scores_rating FROM Listings
+WHERE LENGTH(Listings.price) <= 6 AND CAST((RIGHT(Listings.price, LENGTH(Listings.price) - 1 )) as DECIMAL(9,2)) <= 50 AND Listings.review_scores_rating >= '90' AND Listings.neighbourhood_cleansed = 'ΠΕΤΡΑΛΩΝΑ'
+ORDER BY Listings.id
