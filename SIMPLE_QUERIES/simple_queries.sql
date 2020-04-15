@@ -135,7 +135,7 @@ ORDER BY Listings.id
 
 /* 11th Query
 Find the cheapest houses.
-Output: 47 row
+Output: 47 rows
 */
 
 SELECT Listings.id, Listings.name, Listings.price FROM Listings
