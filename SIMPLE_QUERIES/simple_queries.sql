@@ -130,3 +130,15 @@ Output: 114 rows
 SELECT Listings.id, Listings.name, Listings.price, Listings.review_scores_rating FROM Listings
 WHERE LENGTH(Listings.price) <= 6 AND CAST((RIGHT(Listings.price, LENGTH(Listings.price) - 1 )) as DECIMAL(9,2)) <= 50 AND Listings.review_scores_rating >= '90' AND Listings.neighbourhood_cleansed = 'ΠΕΤΡΑΛΩΝΑ'
 ORDER BY Listings.id
+
+
+
+/* 11th Query
+Find the cheapest houses.
+Output: 47 row
+*/
+
+SELECT Listings.id, Listings.name, Listings.price FROM Listings
+GROUP BY Listings.id
+HAVING Listings.price = (SELECT MIN(Listings.price) FROM Listings
+							WHERE Listings.price > '$0.00')	
