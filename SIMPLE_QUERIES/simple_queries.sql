@@ -113,22 +113,22 @@ ORDER BY Reviews.date;
 
 /* 9th Query
 Find all hosts before 2012, with at least one house of 90 review score or higher.
-Output: 83 rows 
+Output: 99 rows 
 */
 
 SELECT DISTINCT Listings.host_id, Listings.host_name, Listings.host_since, COUNT(Listings.id) FROM Listings
-WHERE CAST(Listings.host_since AS VARCHAR(10)) < '2012%' AND Listings.review_scores_rating >= '90'
+WHERE CAST(Listings.host_since AS VARCHAR(10)) < '2012%' AND (Listings.review_scores_rating >= '90' OR Listings.review_scores_rating = '100')
 GROUP BY Listings.host_id, Listings.host_name, Listings.host_since;
 
 
 
 /* 10th Query
 Find all rentings available between $0 and $50 in ΠΕΤΡΑΛΩΝΑ rated 90 or higher.
-Output: 114 rows 
+Output: 180 rows 
 */
 
 SELECT Listings.id, Listings.name, Listings.price, Listings.review_scores_rating FROM Listings
-WHERE LENGTH(Listings.price) <= 6 AND CAST((RIGHT(Listings.price, LENGTH(Listings.price) - 1 )) as DECIMAL(9,2)) <= 50 AND Listings.review_scores_rating >= '90' AND Listings.neighbourhood_cleansed = 'ΠΕΤΡΑΛΩΝΑ'
+WHERE LENGTH(Listings.price) <= 6 AND CAST((RIGHT(Listings.price, LENGTH(Listings.price) - 1 )) as DECIMAL(9,2)) <= 50 AND (Listings.review_scores_rating >= '90' OR Listings.review_scores_rating = '100') AND Listings.neighbourhood_cleansed = 'ΠΕΤΡΑΛΩΝΑ'
 ORDER BY Listings.id;
 
 
@@ -155,3 +155,18 @@ JOIN Listings
 ON Reviews.listing_id = Listings.id
 WHERE Listings.neighbourhood_cleansed = 'ΘΗΣΕΙΟ'
 GROUP BY Reviews.id, Listings.id, Listings.name, Listings.price;
+																										   
+																										   
+																										   
+/* 13th Query
+Find all regions that have rentings of 99 or 100 rating score.
+Output: 43 rows
+*/
+
+SELECT GEO.* FROM Geolocation AS GEO
+JOIN Neighbourhoods
+ON Neighbourhoods.neighbourhood	= GEO.properties_neighbourhood	
+JOIN Listings
+ON Listings.neighbourhood_cleansed = Neighbourhoods.neighbourhood																								   
+WHERE Listings.review_scores_rating = '99' OR Listings.review_scores_rating = '100'
+GROUP BY GEO.properties_neighbourhood;
