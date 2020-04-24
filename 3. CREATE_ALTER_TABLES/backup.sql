@@ -1,21 +1,21 @@
--- Execute to backup
+-- Execute this to backup
 CREATE TABLE CalendarB AS 
 TABLE Calendar;
 
-CREATE TABLE ListingsB AS 
-TABLE Listings;
+CREATE TABLE ListingB AS 
+TABLE Listing;
 
-CREATE TABLE NeighbourhoodsB AS 
-TABLE Neighbourhoods;
+CREATE TABLE NeighbourhoodB AS 
+TABLE Neighbourhood;
 
-CREATE TABLE ReviewsB AS 
-TABLE Reviews;
+CREATE TABLE ReviewB AS 
+TABLE Review;
 
--- Execute to drop backup
+-- Execute this to drop backup
 DROP TABLE CalendarB;
 
-DROP TABLE ListingsB;
+DROP TABLE ListingB;
 
-DROP TABLE NeighbourhoodsB;
+DROP TABLE NeighbourhoodB;
 
-DROP TABLE ReviewsB;
+DROP TABLE ReviewB;
