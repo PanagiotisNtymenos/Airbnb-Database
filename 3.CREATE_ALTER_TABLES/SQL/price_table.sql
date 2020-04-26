@@ -28,7 +28,6 @@ RENAME COLUMN id TO listing_id;
 	WHERE Price.listing_id = NODOLLAR.listing_id;
 
 -- 	Delete comma in prices
-	SELECT CONCAT(split_part(monthly_price, ',', 1), split_part(monthly_price, ',', 2)) FROM Price;
 	UPDATE Price
 	SET price = NOCOMMA.pr,
 		weekly_price = NOCOMMA.wpr,
