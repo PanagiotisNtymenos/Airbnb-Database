@@ -3,9 +3,9 @@ CREATE TABLE Price AS
 SELECT id, price, weekly_price, monthly_price, security_deposit, cleaning_fee,
 			guests_included, extra_people, minimum_nights, maximum_nights,
 			minimum_minimum_nights, maximum_minimum_nights, minimum_maximum_nights,
-			maximum_maximum_nights, minimum_nights_avg_ntm, maximum_nights_avg_ntm FROM ListingsB;
+			maximum_maximum_nights, minimum_nights_avg_ntm, maximum_nights_avg_ntm FROM Listing;
 
--- Rename id to listings_id
+-- Rename id to listing_id
 ALTER TABLE Price 
 RENAME COLUMN id TO listing_id;
 
@@ -44,7 +44,7 @@ RENAME COLUMN id TO listing_id;
 		  CONCAT(split_part(extra_people, ',', 1), split_part(extra_people, ',', 2)) AS ep FROM Price) AS NOCOMMA
 	WHERE Price.listing_id = NOCOMMA.listing_id;
 	
--- 	Restore any NULL cells
+-- 	Restore any NULL cells (They should not exist, but I should not change the tables I had)
 	UPDATE Price
 	SET weekly_price = NULL
 	WHERE weekly_price = '';

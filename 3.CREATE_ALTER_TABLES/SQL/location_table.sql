@@ -4,7 +4,7 @@ SELECT id, street, neighbourhood, neighbourhood_cleansed, city, state,
 		zipcode, market, smart_location, country_code, country, latitude, longitude,
 		is_location_exact FROM Listing;
 
--- Rename id to listings_id
+-- Rename id to listing_id
 ALTER TABLE Location 
 RENAME COLUMN id TO listing_id;
 

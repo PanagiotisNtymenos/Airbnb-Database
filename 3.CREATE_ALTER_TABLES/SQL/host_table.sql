@@ -51,6 +51,6 @@ DROP COLUMN host_has_profile_pic,
 DROP COLUMN host_identity_verified,
 DROP COLUMN calculated_host_listings_count;
 
--- Make foreign key on Listings
+-- Make foreign key on Listing
 ALTER TABLE Listing
 ADD FOREIGN KEY (host_id) REFERENCES Host(id);
