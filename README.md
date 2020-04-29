@@ -9,5 +9,9 @@
 
 # NF
 
+## Tables
+![](3.CREATE_ALTER_TABLES/ERD/TABLE_RELATIONS.png)
+
+
 ## ER
 ![](3.CREATE_ALTER_TABLES/ERD/airbnb_NF_ERD.png)
