@@ -25,4 +25,4 @@
 
 
 ## ER
-![](4.BCNF_QUERIES/FILES/airbnb_NF_ERD.png)
+![](4.BCNF_QUERIES/FILES/airbnb_ERD.png)
