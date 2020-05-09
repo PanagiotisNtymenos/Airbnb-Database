@@ -1,16 +1,17 @@
-/* Find how many Listings in ΠΕΤΡΑΛΩΝΑ, belong to each Host 
-Output:  rows
+/* Find how many Listings in ΠΕΤΡΑΛΩΝΑ, belong to EVERY Host 
+Output: 6363 rows
 */
 
-select * from Host
-
-SELECT Host.id, Host.name, COUNT(Listing.id) from Listing
-FULL JOIN Host
-ON Host.id = Listing.host_id
-JOIN Location
-ON Listing.id = Location.listing_id
-WHERE Location.neighbourhood_cleansed = 'ΠΕΤΡΑΛΩΝΑ'
+SELECT Host.id, Host.name, COUNT(L.id) from HOST
+LEFT JOIN (SELECT Listing.id, Listing.host_id FROM Listing
+			JOIN Location
+			ON Listing.id = Location.listing_id
+			JOIN Neighbourhood
+			ON Neighbourhood.neighbourhood = Location.neighbourhood_cleansed
+			WHERE Neighbourhood.neighbourhood = 'ΠΕΤΡΑΛΩΝΑ') AS L
+ON L.host_id = Host.id
 GROUP BY Host.id
+ORDER BY COUNT(L.id) DESC
 
 
 
